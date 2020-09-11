@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>html5 canvas全屏彩带飘动背景动画特效</title>
+		<!--    <script src="ribbon.js"></script>-->
+
+		<style type="text/css">
+			/* 	body{
+		margin: 0;
+	} */
+			canvas {
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+
+		<canvas id="canvas" width="300" height="300"></canvas>
+
+		<!-- <div id="digitalrain" style="width: 100%;height: 500px;position: relative;"></div> -->
+		<!-- <script type="text/javascript" size="10" alpha="0" zIndex="-1" src="ribbon.js"></script> -->
+		<!-- <script type="text/javascript" size="10" alpha="0" zIndex="-1" src="digitalrain.js"></script> -->
+		<!--<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';color:#ffffff">-->
+		<!--<p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>-->
+		<!--<p>来源：<a href="https://www.lanrenzhijia.com/" target="_blank">懒人</a></p>-->
+		</div>
+
+
+
+
+		<script type="text/javascript">
+			// 绘制一个矩形的边框
+			// ctx.fillRect(x, y, width, height)
+
+			// 绘制一个矩形的边框
+			// ctx.strokeRect(x, y, width, height)
+
+			// 清除指定矩形区域，让清除部分完全透明。
+			// ctx.clearRect(x, y, width, height)
+
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			// 			ctx.fillStyle = "rgb(200,0,0)";
+			// 			// 绘制一个填充的矩形
+			// 			ctx.fillRect(10, 10, 50, 50);
+			// 
+			// 			ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+			// 			ctx.fillRect(30, 30, 50, 50);
+			// 
+			// 			ctx.clearRect(30, 30, 30, 30);
+			// 
+			// 			ctx.strokeRect(32.5, 32.5, 25, 25);
+			// 绘制一个矩形的边框
+			// strokeRect(x, y, width, height)
+			// ctx.strokeRect(x, y, width, height)
+			// 清除指定矩形区域，让清除部分完全透明。
+			// clearRect(x, y, width, height)
+
+			// 三角形
+			// 			ctx.beginPath();
+			// 			ctx.moveTo(50, 50);
+			// 			ctx.lineTo(110, 75);
+			// 			ctx.lineTo(100, 100);
+			// 			ctx.lineTo(50, 100);
+			// 			ctx.lineTo(50, 50);
+			// ctx.stroke();
+			// 			ctx.fill();
+			// 			console.log(2 * Math.PI);
+			// 			// 笑脸
+			// 			ctx.beginPath();
+			// 			// ctx.moveTo(50, 50);
+			// 			//脸
+			// 			ctx.arc(50, 50, 50, 0, 2 * Math.PI, false);
+			// 			//嘴
+			// 			ctx.moveTo(90, 50);
+			// 			ctx.arc(50, 50, 40, 0, Math.PI, false);
+			// 
+			// 			//左眼
+			// 			ctx.moveTo(30, 40);
+			// 			ctx.arc(25, 40, 5, 0, 2 * Math.PI, false);
+			// 
+			// 			//右眼
+			// 			ctx.moveTo(80, 40);
+			// 			ctx.arc(75, 40, 5, 0, 2 * Math.PI, false);
+			// 			ctx.stroke();
+
+
+			// 			ctx.beginPath();
+			// 			ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // 绘制
+			// 			ctx.moveTo(110, 75);
+			// 			ctx.arc(75, 75, 35, 0, Math.PI, false);   // 口(顺时针)
+			// 			ctx.moveTo(65, 65);
+			// 			ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // 左眼
+			// 			ctx.moveTo(95, 65);
+			// 			ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // 右眼
+			// 			ctx.stroke();
+
+			/* fillText(text, x, y [, maxWidth])
+			在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.
+			strokeText(text, x, y [, maxWidth])
+			在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的. */
+			//绘制文本
+						
+						ctx.font = "48px serif";
+						ctx.fillStyle = "red";
+						ctx.fillText("Hello world", 10, 50);
+			// 			ctx.strokeText("Hello world", 10, 50);
+
+			// 			ctx.fillRect(0, 0, 150, 150); // 使用默认设置绘制一个矩形
+			// 			ctx.save(); // 保存默认状态
+			// 
+			// 			ctx.fillStyle = '#09F' // 在原有配置基础上对颜色做改变
+			// 			ctx.fillRect(15, 15, 120, 120); // 使用新的设置绘制一个矩形
+			// 			ctx.save(); // 保存当前状态
+			// 			
+			// 			ctx.fillStyle = '#FFF' // 再次改变颜色配置
+			// 			ctx.globalAlpha = 0.5;
+			// 			ctx.fillRect(30, 30, 90, 90); // 使用新的配置绘制一个矩形
+			// 
+			// 			ctx.restore(); // 重新加载之前的颜色状态
+			// 			ctx.fillRect(45, 45, 60, 60); // 使用上一次的配置绘制一个矩形
+			// 
+			// 			ctx.restore(); // 加载默认颜色配置
+			// 			ctx.fillRect(60, 60, 30, 30); // 使用加载的配置绘制一个矩形
+			// 			ctx.fillStyle = '#09F'
+			// 			ctx.fillRect(0, 0, 25, 25);
+			// 			ctx.save();
+			// 			
+			// 			ctx.restore();
+			// 			ctx.translate(10 + 1 * 50, 0);
+			// 			ctx.fillRect(0, 0, 25, 25);
+			// 			
+			// 			ctx.restore();
+			// 			ctx.translate(10 + 2 * 50, 0);
+			// 			ctx.fillRect(0, 0, 25, 25);
+			// 
+			// 			ctx.fillRect(50, 0, 25, 25);
+
+			// 			for (var i = 0; i < 3; i++) {
+			// 				for (var j = 0; j < 3; j++) {
+			// 					ctx.save();
+			// 					ctx.fillStyle = 'rgb(' + (51 * i) + ', ' + (255 - 51 * i) + ', 255)';
+			// 
+			// 					ctx.translate(10 + j * 50, 10 + i * 50);
+			// 					ctx.fillRect(0, 0, 25, 25);
+			// 					ctx.restore();
+			// 					// ctx.save();
+			// 					// 					ctx.fillStyle = 'rgb(' + (51 * i) + ', ' + (255 - 51 * i) + ', 255)';
+			// 					// 					ctx.fillRect(10 + j * 50, 10 + i * 50, 25, 25);
+			// 				}
+			// 			}
+
+			var origin = 75;
+
+			// ctx.translate(origin, origin);
+			// 						ctx.rotate(Math.PI * 2 / (0 * 6));
+			// 						ctx.beginPath();
+			// 						ctx.arc(0, 0 * 12.5, 5, 0, Math.PI * 2, true);
+			// 						ctx.fill();
+			// 						
+			// 						ctx.rotate(Math.PI * 2 / (1 * 6));
+			// 						ctx.beginPath();
+			// 						ctx.arc(0, 1 * 12.5, 5, 0, Math.PI * 2, true);
+			// 						ctx.fill();
+
+			ctx.translate(origin, origin);
+			for (var i = 1; i < 6; i++) { // Loop through rings (from inside to out)
+				ctx.save();
+				ctx.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255)';
+
+				for (var j = 0; j < i * 6; j++) { // draw individual dots
+					ctx.rotate(Math.PI * 2 / (i * 6));
+					ctx.beginPath();
+					//75/6=12.5
+					ctx.arc(0, i * origin / 6, 5, 0, Math.PI * 2, true);
+					ctx.fill();
+					// ctx.stroke();
+				}
+
+				ctx.restore();
+			}
+// ctx.save();
+// 			ctx.rotate(Math.PI * 2 / (0 * 6));
+// 			ctx.beginPath();
+// 			ctx.arc(0, 0 * 12.5, 5, 0, Math.PI * 2, true);
+// 			ctx.fill();
+// ctx.restore();
+// ctx.save();
+// 			ctx.rotate(Math.PI * 2 / (1 * 6));
+// 			ctx.beginPath();
+// 			ctx.arc(0, 1 * 12.5, 5, 0, Math.PI * 2, true);
+// 			ctx.fill();
+// ctx.restore();
+// ctx.save();
+// 			ctx.rotate(Math.PI * 2 / (2 * 6));
+// 			ctx.beginPath();
+// 			ctx.arc(0, 2 * 12.5, 5, 0, Math.PI * 2, true);
+// 			ctx.fill();
+// ctx.restore();
+			// 缩放
+			// 			ctx.save();
+			// // 			ctx.scale(2, 1);
+			// // 			ctx.fillRect(5, 10, 10, 10);
+			// 			ctx.fillRect(10, 10, 20, 10);
+			// 			ctx.restore();
+
+			//变形
+			// 			var sin = Math.sin(Math.PI / 3);
+			// 			var cos = Math.cos(Math.PI / 3);
+			// 
+			// 			ctx.translate(100, 100)
+			// 			ctx.fillRect(0, 0, 100, 10);
+			// 
+			// 			ctx.transform(cos, sin, -sin, cos, 0, 0);
+			// 			ctx.fillRect(0, 0, 100, 100);
+			// ctx.transform(cos, sin, -sin, cos, 0, 0);
+
+			// 			roundedRect(ctx, 12, 12, 150, 150, 15);
+			// 			roundedRect(ctx, 19, 19, 150, 150, 9);
+			// 			roundedRect(ctx, 53, 53, 49, 33, 10);
+			// 			roundedRect(ctx, 53, 119, 49, 16, 6);
+			// 			roundedRect(ctx, 135, 53, 49, 33, 10);
+			// 			roundedRect(ctx, 135, 119, 25, 49, 10);
+			// 
+			// 			ctx.beginPath();
+			// 			ctx.arc(37, 37, 13, Math.PI / 7, -Math.PI / 7, false);
+			// 			ctx.lineTo(31, 37);
+			// 			ctx.fill();
+			// 
+			// 			for (var i = 0; i < 8; i++) {
+			// 				ctx.fillRect(51 + i * 16, 35, 4, 4);
+			// 			}
+			// 
+			// 			for (i = 0; i < 6; i++) {
+			// 				ctx.fillRect(115, 51 + i * 16, 4, 4);
+			// 			}
+			// 
+			// 			for (i = 0; i < 8; i++) {
+			// 				ctx.fillRect(51 + i * 16, 99, 4, 4);
+			// 			}
+			// 
+			// 			ctx.beginPath();
+			// 			ctx.moveTo(83, 116);
+			// 			ctx.lineTo(83, 102);
+			// 			ctx.bezierCurveTo(83, 94, 89, 88, 97, 88);
+			// 			ctx.bezierCurveTo(105, 88, 111, 94, 111, 102);
+			// 			ctx.lineTo(111, 116);
+			// 			ctx.lineTo(106.333, 111.333);
+			// 			ctx.lineTo(101.666, 116);
+			// 			ctx.lineTo(97, 111.333);
+			// 			ctx.lineTo(92.333, 116);
+			// 			ctx.lineTo(87.666, 111.333);
+			// 			ctx.lineTo(83, 116);
+			// 			ctx.fill();
+			// 
+			// 			ctx.fillStyle = "white";
+			// 			ctx.beginPath();
+			// 			ctx.moveTo(91, 96);
+			// 			ctx.bezierCurveTo(88, 96, 87, 99, 87, 101);
+			// 			ctx.bezierCurveTo(87, 103, 88, 106, 91, 106);
+			// 			ctx.bezierCurveTo(94, 106, 95, 103, 95, 101);
+			// 			ctx.bezierCurveTo(95, 99, 94, 96, 91, 96);
+			// 			ctx.moveTo(103, 96);
+			// 			ctx.bezierCurveTo(100, 96, 99, 99, 99, 101);
+			// 			ctx.bezierCurveTo(99, 103, 100, 106, 103, 106);
+			// 			ctx.bezierCurveTo(106, 106, 107, 103, 107, 101);
+			// 			ctx.bezierCurveTo(107, 99, 106, 96, 103, 96);
+			// 			ctx.fill();
+			// 
+			// 			ctx.fillStyle = "black";
+			// 			ctx.beginPath();
+			// 			ctx.arc(101, 102, 2, 0, Math.PI * 2, true);
+			// 			ctx.fill();
+			// 
+			// 			ctx.beginPath();
+			// 			ctx.arc(89, 102, 2, 0, Math.PI * 2, true);
+			// 			ctx.fill();
+			// 
+
+			// 封装的一个用于绘制圆角矩形的函数.
+
+			function roundedRect(ctx, x, y, width, height, radius) {
+				ctx.beginPath();
+				ctx.moveTo(x, y + radius);
+				ctx.lineTo(x, y + height - radius);
+				ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
+				ctx.lineTo(x + width - radius, y + height);
+				ctx.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
+				ctx.lineTo(x + width, y + radius);
+				ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
+				ctx.lineTo(x + radius, y);
+				ctx.quadraticCurveTo(x, y, x, y + radius);
+				ctx.stroke();
+			}
+
+			// 星星
+			// 			function drawStar(ctx, r) {
+			// 				ctx.save();
+			// 				ctx.beginPath()
+			// 				ctx.moveTo(r, 0);
+			// 				for (var i = 0; i < 9; i++) {
+			// 					ctx.rotate(Math.PI / 5);
+			// 					if (i % 2 == 0) {
+			// 						ctx.lineTo((r / 0.525731) * 0.200811, 0);
+			// 					} else {
+			// 						ctx.lineTo(r, 0);
+			// 					}
+			// 				}
+			// 				ctx.closePath();
+			// 				ctx.fill();
+			// 				ctx.restore();
+			// 			}
+			// 			
+			// 			ctx.translate(75,75);
+
+			// 			while(true){
+			// 				ctx.save();
+			// 				// ctx.fillStyle = '#fff';
+			// 				ctx.translate(75 - Math.floor(Math.random() * 150),
+			// 					75 - Math.floor(Math.random() * 150));
+			// 				drawStar(ctx, Math.floor(Math.random() * 4) + 2);
+			// 				ctx.restore();
+			// 			}
+			// 			for (var j = 1; j < 10; j++) {
+			// 				ctx.save();
+			// 				// ctx.fillStyle = '#fff';
+			// 				ctx.translate(75 - Math.floor(Math.random() * 150),
+			// 					75 - Math.floor(Math.random() * 150));
+			// 				drawStar(ctx, Math.floor(Math.random() * 4) + 2);
+			// 				ctx.restore();
+			// 			}
+			// drawStar(ctx, 50);
+		</script>
+
+
+		<!-- 
+
+beginPath()
+新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
+closePath()
+闭合路径之后图形绘制命令又重新指向到上下文中。
+stroke()
+通过线条来绘制图形轮廓。
+fill()
+通过填充路径的内容区域生成实心的图形。
+
+ -->
+
+
+
+	</body>
+</html>

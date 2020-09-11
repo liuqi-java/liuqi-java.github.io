@@ -1,0 +1,8 @@
+# https://www.sunboot.com.cn robots.txt
+
+User-agent: *
+
+Disallow:
+
+Sitemap: https://www.sunboot.com.cn/sitemap.xml
+Sitemap: https://www.sunboot.com.cn/baidusitemap.xml

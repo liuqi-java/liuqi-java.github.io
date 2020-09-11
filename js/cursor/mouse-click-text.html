@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			canvas {
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- <canvas id="canvas" width="600" height="300"></canvas> -->
+
+		<script>
+			var textShow = ["富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善"];
+
+			function Text(x, y, font, color, text) {
+				this.x = x || 0;
+				this.y = y || 0;
+				this.font = font || "24px serif";
+				this.color = color || '#09f';
+				this.text = text || 'text';
+				this.globalAlpha = 1;
+			}
+			Text.prototype = {
+				constructor: Text,
+				draw: function(ctx) {
+					ctx.shadowOffsetX = 2;
+					ctx.shadowOffsetY = 2;
+					ctx.shadowBlur = 2;
+					ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+					ctx.font = this.font;
+					//ctx.fillStyle = this.color;
+					this.globalAlpha -= 0.02;
+					// ctx.globalAlpha=this.globalAlpha;
+					ctx.fillStyle = 'rgba(' + this.color + this.globalAlpha + ')';
+					ctx.fillText(this.text, this.x, this.y);
+				},
+				update: function(texts) {
+					this.x += this.vx;
+					this.y += this.vy;
+					// this.globalAlpha-=0.02;
+					if (this.y < 0) {
+						for (var i = 0; i < texts.length; i++) {
+							if (texts[i] == this) {
+								texts.splice(i, 1);
+							}
+						}
+						return false;
+					}
+					return true;
+				}
+			}
+		</script>
+
+
+		<script type="text/javascript">
+			//document.querySelector("#canvas")
+
+			window.onload = function() {
+				var oCanvas = document.createElement('canvas'),
+					oGc = oCanvas.getContext('2d'),
+					width = oCanvas.width = window.innerWidth,
+					height = oCanvas.height = window.innerWidth,
+					texts = [];
+				oCanvas.style.position = 'fixed'
+				oCanvas.style.top = 0
+				oCanvas.style.zIndex = '999999999999999999999999999999999999999999'
+				// oCanvas.style.pointerEvents = 'none'
+
+				oCanvas.style.width = width
+				oCanvas.style.height = height
+				document.body.append(oCanvas)
+
+				function getRandColor() {
+					return Math.floor(Math.random() * 226) + "," + Math.floor(Math.random() * 226) + "," + Math.floor(Math.random() *
+						226) + ",";
+				}
+
+
+				function move() {
+
+					oGc.clearRect(0, 0, width, height);
+					for (var i = 0; i < texts.length; i++) {
+						texts[i].update(texts) && texts[i].draw(oGc);
+					}
+					requestAnimationFrame(move);
+				}
+
+				oCanvas.addEventListener('click', function(ev) {
+					var oEvent = ev || event;
+
+					var textString = textShow[Math.floor(Math.random() * textShow.length)];
+					var text = new Text(oEvent.clientX, oEvent.clientY, "18px serif", getRandColor(), textString);
+					// 					text.vx = (Math.random() * 2 - 1) * 5;
+					// 					text.vy = (Math.random() * 2 - 1) * 5;
+					text.vx = 0;
+					text.vy = -2;
+					texts.push(text);
+				});
+
+				move();
+			}
+		</script>
+	</body>
+</html>
